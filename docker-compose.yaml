@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: gunicorn -t 360 -b 0.0.0.0:8000 app:app --access-logfile=- --reload
+    volumes:
+      - './backend:/backend'
+    expose:
+      - "8000"
+    networks:
+      - web_network
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - "8080:8080"
+    networks:
+      - web_network
+
+  torchserve:
+    container_name: torchserve
+    build:
+      context: .
+      dockerfile: torchserve/Dockerfile
+    working_dir: /home/model-server
+    command:
+      - "torchserve --start --model-store model-store --models sismedbert=medbert_aug.mar"
+    expose:
+      - "8080"
+      - "8081"
+    volumes:
+      - ./torchserve/model-store:/home/model-server/model-store
+    networks:
+      - web_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: "2048M"
+        reservations:
+          cpus: "0.5"
+          memory: "1024M"
+
+networks:
+  web_network:

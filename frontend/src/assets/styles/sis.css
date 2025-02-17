@@ -1,0 +1,272 @@
+.card-body{
+  width: 100%;
+}
+
+.slide{
+  display: none;
+}
+
+.end-session-button{
+  padding: 5px;
+  background-color: red;
+  border-radius: 5px;
+  float: right;
+  color: white;
+  margin-right: 20px;
+  border-color: black;
+}
+
+.end-session-button:hover{
+  box-shadow: 5px 10px 10px rgba(119, 118, 118, 0.63);
+}
+
+.popup{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+
+  width: 100%;
+  max-width: 600px;
+  background-image:linear-gradient(to bottom right, rgb(205,193,197), white);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: inset;
+  border: 1px solid rgba(0, 0, 0, 0.747);
+}
+
+.modal-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 98;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade-enter-active,
+.fade-leave-active{
+  transition: opacity .5s;
+}
+
+.slide-enter-active,
+.slide-leave-active{
+  transition: transform .5s;
+}
+
+.slide-enter,
+.slide-leave-to{
+  opacity: 0;
+}
+
+.fade-enter,
+.fade-leave-to{
+  opacity: 0;
+}
+
+.cancel-button{
+  background-color: rgb(201, 199, 199);
+  color: black;
+  float:right;
+  border-radius: 5px;
+  border-color: black;
+  padding: 5px;
+}
+
+.cancel-button:hover{
+  box-shadow: 5px 10px 10px rgba(119, 118, 118, 0.63);
+}
+
+#download-button{
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 10px;
+  position: absolute;
+  top: 75px;
+  right: 100px;
+  font-size: x-large;
+}
+
+#download-button:hover{
+  box-shadow: 5px 10px 10px rgba(119, 118, 118, 0.63);
+}
+
+.choose-audio-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr  1fr ;
+  margin: 10px;
+  justify-content: center;
+}
+
+#title{
+  grid-column: 2/3;
+  grid-row: 1/2;
+  place-self: center;
+}
+
+.dropdown{
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+#choose-audio{
+  grid-row: 3/4;
+  grid-column: 2/3;
+  background-color: white;
+  border: 1px solid grey;
+  width: 100px;
+  border-radius: 10px;
+  margin-top: 10px;
+  place-self: center;
+  background-color: rgb(205,193,197);
+}
+
+#choose-audio:hover{
+  box-shadow: 5px 10px 10px rgba(119, 118, 118, 0.63);
+}
+
+#placeholder::placeholder{ 
+  color: red;
+  opacity: 1;
+}
+
+input{
+  width: 50%;
+  padding: 10px;
+}
+
+#input{
+  padding:20px;
+}
+
+#container{
+  display: grid;
+  border: 1px solid gray;
+  padding: 10px;
+  width: 50%;
+  margin: auto;
+}
+
+.card{
+  border: 1px solid gray;
+  margin: auto;
+  width: 95%;  border: 1px solid gray;
+}
+
+#card0 .card-header{
+  height: 40px;
+  background-color: #d02021;
+}
+
+#card1 .card-header{
+  height: 40px;
+  background-color: #ea5b3b;
+}
+
+#card2 .card-header{
+  height: 40px;
+  background-color: #ffb808;
+}
+
+#card3 .card-header{
+  height: 40px;
+  background-color: #67c76d;  
+}
+
+#card4 .card-header{
+  height: 40px;
+  background-color: #9f4fae;
+}
+
+#card5 .card-header{
+  height: 40px;
+  background-color: #68b3e6;
+}
+
+#card6 .card-header{ 
+  height: 40px;
+  background-color: #f1486f;
+}
+
+.bm-overlay{
+  background: none;
+}
+
+@media screen and (min-width:400px) and (max-width: 900px) {
+  #container{
+    display: grid;
+    border: 1px solid gray;
+    padding: 10px;
+    width: 60%;
+    margin: auto;
+  }
+
+  .backwards{
+    display: none;
+  }
+
+  #download{
+    display: none;
+  }
+
+  .logout{
+    display: none;
+  }
+
+  .slide{
+    display: inline;
+    border: none;
+    background: none;
+    border-radius: none;
+    position: absolute;
+    top: 50px;
+    right: 15%;
+    width: 40px;
+  }
+
+  .line-style{
+    height: 15%;
+  }
+
+  .bm-overlay{
+    background: none;
+  }
+
+  .bm-menu{
+    height: 100%; 
+    width: 0; 
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    background-color: rgb(179, 160, 166);
+    overflow-x: hidden; 
+    padding-top: 60px;
+    transition: 0.5s; 
+  }
+
+  .bm-back{
+    background: none;
+    border: none;
+  }
+
+  .bm-item-list{
+    background: none;
+    border: none;
+  }
+
+  button{
+    background: none;
+    border: none;
+  }
+
+  .bm-cross{
+    background: white;
+  } 
+}

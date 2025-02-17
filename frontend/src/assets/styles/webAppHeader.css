@@ -1,0 +1,20 @@
+#headline{
+  font-size: 90px;
+}
+
+.header{
+  align-content: center;
+  display: flex;
+  margin-top: 40px;
+  border-radius: 10px;
+  height: 140px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(205,193,197);
+}
+
+@media screen and (min-width:400px) and (max-width: 900px) {
+  #headline{
+    font-size: 65px;
+  }
+}

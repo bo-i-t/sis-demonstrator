@@ -1,0 +1,113 @@
+<template>
+  <div id="app">
+    <b-card class="card text-center m-4" title="Neue Aufnahme erstellen">
+      <p>
+        Drücken Sie den Button, um eine neue Aufnahme zu beginnen. Drücken Sie
+        ihn erneut, um die Aufnahme zu beenden.
+      </p>
+      <vue-record-audio mimeType="audio/webm" mode="press" @result="onResult" />
+    </b-card>
+
+    <div
+      class="card m-4"
+      title="Aufnahme"
+      v-for="(rec, index) in recordings"
+      :key="index"
+    >
+      <div class="btn-group" role="group">
+        <audio class="m-2 w-75" controls :src="rec.wav" />
+        <button
+          type="button"
+          @click="removeRecord(index)"
+          class="btn btn-outline-danger m-2"
+        >
+          <BIconTrash />
+        </button>
+        <button
+          type="button"
+          @click="downloadRecord(rec.wav)"
+          class="btn btn-outline-primary m-2"
+        >
+          <BIconDownload />
+        </button>
+      </div>
+      <div
+        class="form text-right px-2 py-1"
+        v-for="(tra, idx) in rec.transcript"
+        :key="idx"
+      >
+        <textarea
+          v-on:change="NlpPredict(tra)"
+          class="form-control"
+          type="text"
+          v-model="tra.txt"
+        />
+        <span class="badge badge-secondary">{{ tra.spk }}</span>
+        <span class="badge badge-primary">{{ tra.cls }}</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App",
+  methods: {
+    removeRecord(index) {
+      this.recordings.splice(index, 1);
+    },
+    downloadRecord(data) {
+      console.log(data);
+      const link = document.createElement("a");
+      link.href = data;
+      let date = new Date();
+      link.download = "Aufnahme " + date.toString();
+      link.click();
+    },
+    NlpPredict(transcript) {
+      let formData = new FormData();
+      formData.append("txt", transcript.txt);
+      this.axios
+        .post("https://192.168.168.209:5000/nlp/predict", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((resp) => {
+          transcript.cls = resp.data.cls;
+        });
+    },
+    onResult(data) {
+      let cdate = new Date();
+      let wav = window.URL.createObjectURL(data);
+
+      let formData = new FormData();
+      formData.append("file", data, cdate.toString());
+      this.axios.post("https://192.168.168.209:5000/upload_wav", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      this.axios
+        .get("https://192.168.168.209:5000/transcripts/" + cdate.toString())
+        .then((resp) => {
+          this.recordings.push({
+            wav: wav,
+            blob: data,
+            date: cdate,
+            transcript: resp.data.transcript,
+          });
+        });
+    },
+  },
+  data() {
+    return {
+      recordings: [],
+      // { wav: null, blob: null, transcript: [{ spk: null, txt: null }] },
+    };
+  },
+};
+</script>
+
+<style>
+</style>

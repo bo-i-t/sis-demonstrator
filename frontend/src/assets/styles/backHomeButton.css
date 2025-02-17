@@ -1,0 +1,15 @@
+#back-home-button{
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 10px;
+  position: absolute;
+  top: 75px;
+  left: 100px;
+  background-color: white;
+  font-size: x-large;  
+}
+
+#back-home-button:hover{
+  box-shadow: 5px 10px 10px rgba(119, 118, 118, 0.63);
+}
+  
